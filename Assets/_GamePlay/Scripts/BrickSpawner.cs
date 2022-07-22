@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class BrickSpawner : MonoBehaviour
 {
-    public GameObject[] brick;
+    public GameObject[] brick; 
     public int numx = 8;
     public int numz = 8;
     public float spacex = 0.25f;
     public float spacez = 0.25f;
-
     public Transform startPos;
+    public GameObject BickBlue;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke(nameof(SpawnerBrick), 1.5f);
+        Invoke("SpawnerBrick",0f);
+        BickBlue = brick[0];
     }
 
     public void SpawnerBrick()

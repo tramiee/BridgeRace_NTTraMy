@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9222704562772339011}
   m_Layer: 0
   m_Name: BrickRed
-  m_TagString: Untagged
+  m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
