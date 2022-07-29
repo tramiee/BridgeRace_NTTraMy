@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public FixedJoystick joystick;
     public float speed;
     public Animator playerAnimator;
-    public GameObject stackHolder;
+    public Transform stackHolder;
     public GameObject stepHolder;
     public GameObject stepHolder1;
     public GameObject stepHolder2;
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             isMoving = true;
         }
         
-        if(Vector3.Distance(transform.position, stagePoint.position) < 0.1f || Vector3.Distance(transform.position, stagePoint1.position) < 0.15f)
+        if(Vector3.Distance(transform.position, stagePoint.position) < 0.5f || Vector3.Distance(transform.position, stagePoint1.position) < 0.15f)
         {
             SimplePool.Collect(brickPrefab);
             brickSpawner.SpawnerBrick2(3);
@@ -112,16 +112,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddStack()
     {
-        GameObject newStack = Instantiate(stackPrefab) as GameObject;
-        newStack.transform.SetParent(stackHolder.transform);
-        newStack.transform.position = stackHolder.transform.position + stackHolder.transform.up * numOfStacks * 0.05f;
-        newStack.transform.rotation = stackHolder.transform.rotation;
+        SimplePool.Spawn(stackPrefab, stackHolder.position + stackHolder.up * numOfStacks * 0.05f, stackHolder.rotation);
         numOfStacks += 1;
     }
 
     public void RemoveStack()
     {
-        Destroy(stackHolder.transform.GetChild(stackHolder.transform.childCount - 1).gameObject);
+        SimplePool.DespawnNewest(stackPrefab);
         numOfStacks -= 1;
     }
 
@@ -136,6 +133,10 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Finish"))
         {
             playerAnimator.Play("Win");
+            foreach(Transform stack in stackHolder.transform)
+            {
+                Destroy(stack.gameObject);
+            }
         }
     }
 
