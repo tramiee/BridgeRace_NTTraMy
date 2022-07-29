@@ -25,6 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoving = false;
 
+    public GameObject brickPrefab;
+
+    public Transform stagePoint;
+    public Transform stagePoint1;
+
+    public BrickSpawner brickSpawner;
     private void Start()
     {
         while (bridgeIndex < maxBridge)
@@ -53,7 +59,11 @@ public class PlayerMovement : MonoBehaviour
         int layermask = LayerMask.GetMask("Bridge");
         if (Physics.Raycast(transform.position + Vector3.forward * 0.1f + Vector3.up * 10f , Vector3.down, out RaycastHit hit, Mathf.Infinity, layermask))
         {
-            if (hit.collider.tag == "Bridge")
+            if (hit.collider.CompareTag("BridgeYellow"))
+            {
+                isMoving = true;
+            }
+            else
             {
                 if (numOfStacks == 0)
                 {
@@ -64,18 +74,21 @@ public class PlayerMovement : MonoBehaviour
                     isMoving = true;
                     hit.collider.gameObject.GetComponent<Renderer>().enabled = true;
                     hit.collider.gameObject.GetComponent<Renderer>().material = bridgeMaterial;
-                    hit.collider.tag = "BridgeRed";
+                    hit.collider.tag = "BridgeYellow";
                     RemoveStack();
+                    SimplePool.Respawn(brickPrefab);
                 }
-            }
-            else if (hit.collider.tag == "BridgeRed")
-            {
-                isMoving = true;
             }
         } 
         else
         {
             isMoving = true;
+        }
+        
+        if(Vector3.Distance(transform.position, stagePoint.position) < 0.1f || Vector3.Distance(transform.position, stagePoint1.position) < 0.15f)
+        {
+            SimplePool.Collect(brickPrefab);
+            brickSpawner.SpawnerBrick2(3);
         }
     }
     private void FixedUpdate()
@@ -85,9 +98,9 @@ public class PlayerMovement : MonoBehaviour
         {
             movement = Vector3.zero;
         }
-        rb.velocity = movement;
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
+            rb.velocity = movement;
             rb.rotation = Quaternion.LookRotation(rb.velocity);
             playerAnimator.SetBool("isRun", true);
         }
@@ -108,17 +121,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void RemoveStack()
     {
-         Destroy(stackHolder.transform.GetChild(stackHolder.transform.childCount - 1).gameObject);
-         numOfStacks -= 1;
+        Destroy(stackHolder.transform.GetChild(stackHolder.transform.childCount - 1).gameObject);
+        numOfStacks -= 1;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag(bricktag.ToString()))
         {
-            Debug.Log("Yellow");
-            Destroy(other.gameObject);
+            SimplePool.Despawn(other.gameObject);
             AddStack();
+        }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            playerAnimator.Play("Win");
         }
     }
 
