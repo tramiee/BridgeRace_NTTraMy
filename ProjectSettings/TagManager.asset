@@ -13,6 +13,7 @@ TagManager:
   - BridgeRed
   - BridgeGreen
   - BridgeBlue
+  - Enemy
   layers:
   - Default
   - TransparentFX

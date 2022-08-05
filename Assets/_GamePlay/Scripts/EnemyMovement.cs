@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject bridgePrefab;
     public int maxBridge = 22;
     private int bridgeIndex = 0;
-    private int numOfStack = 0;
+    private int numOfStacks = 0;
 
     public Constant.BrickTags brickTag;
     public Constant.BridgeTag bridgeTag;
@@ -30,10 +30,13 @@ public class EnemyMovement : MonoBehaviour
 
     public BrickSpawner brickSpawner;
 
-    public enum BrickType { Blue = 0, Green = 1, Red = 2, Yellow = 3};
-    public BrickType brickType;
+    public Constant.BrickType brickType;
 
     private bool isWin = false;
+
+    public EnemyMovement thisEnemy;
+    public List<EnemyMovement> enemies = new List<EnemyMovement>();
+    public PlayerMovement player;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +95,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                if (numOfStack == 0)
+                if (numOfStacks == 0)
                 {
                     agent.SetDestination(targetPos);
                 }
@@ -110,9 +113,9 @@ public class EnemyMovement : MonoBehaviour
 
     public void AddStack()
     {
-        SimplePool.Spawn(stackPrefab, stackHolder.transform.position + stackHolder.transform.up * numOfStack * 0.05f, stackHolder.transform.rotation);
-        numOfStack += 1;
-        if (numOfStack >= 5)
+        SimplePool.Spawn(stackPrefab, stackHolder.transform.position + stackHolder.transform.up * numOfStacks * 0.05f, stackHolder.transform.rotation);
+        numOfStacks += 1;
+        if (numOfStacks >= 8)
         {
             agent.SetDestination(stagePoint.position);
         }
@@ -121,7 +124,60 @@ public class EnemyMovement : MonoBehaviour
     public void RemoveStack()
     {
         SimplePool.DespawnNewest(stackPrefab);
-        numOfStack -= 1;
+        numOfStacks -= 1;
+    }
+
+    public int GetNumOfStacks()
+    {
+        return numOfStacks;
+    }
+
+    public void ColliderEnemy()
+    {
+        foreach(EnemyMovement enemy in enemies)
+        {
+            if (thisEnemy.GetNumOfStacks() < enemy.GetNumOfStacks())
+            {
+                Fall();
+                return;
+            }
+        }
+    }
+
+    public void ColliderPlayer()
+    {
+        if(thisEnemy.GetNumOfStacks() < player.GetNumOfStack())
+        {
+            Fall();
+        }
+    }
+
+    public void Win()
+    {
+        isWin = true;
+        enemyAnimator.Play(Constant.ANIM_WIN);
+        SimplePool.Collect(stackPrefab);
+    }
+
+    public void Fall()
+    {
+        StartCoroutine(NotFall());
+    }
+
+    IEnumerator NotFall()
+    {
+        enemyAnimator.SetBool(Constant.ANIM_ISFALL, true);
+        agent.speed = 0;
+        while(numOfStacks > 0)
+        {
+            SimplePool.DespawnNewest(stackPrefab);
+            numOfStacks--;
+        }
+        yield return new WaitForSeconds(1f);
+        enemyAnimator.SetBool(Constant.ANIM_ISFALL, false);
+        agent.SetDestination(targetPos);
+        agent.speed = 1;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -132,9 +188,20 @@ public class EnemyMovement : MonoBehaviour
         }
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
-            isWin = true;
-            enemyAnimator.Play(Constant.ANIM_WIN);
-            SimplePool.Collect(stackPrefab);
+            Win();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag(Constant.TAG_ENEMY))
+        {
+            ColliderEnemy();
+        }
+
+        if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
+        {
+            ColliderPlayer();
         }
     }
 }

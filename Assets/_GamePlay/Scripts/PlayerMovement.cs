@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public Animator playerAnimator;
     private bool isMoving = false;
+    public Vector3 movement;
 
     public Transform stackHolder;
     public GameObject stackPrefab;
@@ -23,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private int bridgeIndex = 0;
 
     public Constant.BrickTags brickTags;
-
     public Constant.BridgeTag bridgeTags;
+    public Constant.BrickType brickType;
 
     public int maxBridge = 22;
     public GameObject brickPrefab;
@@ -32,11 +33,16 @@ public class PlayerMovement : MonoBehaviour
     public Transform stagePoint;
     public Transform stagePoint1;
 
+    public PlayerMovement thisPlayer;
+    public List<EnemyMovement> enemies = new List<EnemyMovement>();
+
+    public Transform posFinish;
+    public bool isWin = false;
+
     private void Start()
     {
         while (bridgeIndex < maxBridge)
         {
-            //SimplePool.Spawn(brickPrefab, stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex, Quaternion.identity);
             GameObject newBridge = Instantiate(bridgePrefab) as GameObject;
             newBridge.transform.SetParent(stepHolder.transform);
             newBridge.transform.position = stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
@@ -90,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if(Vector3.Distance(transform.position, stagePoint.position) < 0.2f || Vector3.Distance(transform.position, stagePoint1.position) < 0.2f)
         {
             SimplePool.Collect(brickPrefab);
-            brickSpawner.SpawnerBrick2(3);
+            brickSpawner.SpawnerBrick2((int)brickType);
         }
     }
     private void FixedUpdate()
@@ -100,8 +106,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        Vector3 movement = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
+       
+        movement = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
         if (!isMoving && movement.z > 0)
+        {
+            movement = Vector3.zero;
+        }
+        if (isWin)
         {
             movement = Vector3.zero;
         }
@@ -129,13 +140,45 @@ public class PlayerMovement : MonoBehaviour
         numOfStacks -= 1;
     }
 
+    public int GetNumOfStack()
+    {
+        return numOfStacks;
+    }
+
+    public void ColliderEnemy()
+    {
+        foreach(EnemyMovement enemy in enemies)
+        {
+            if (thisPlayer.GetNumOfStack() < enemy.GetNumOfStacks())
+            {
+                Fall();
+                Debug.Log("fall");
+                return;
+            }
+        }
+    }
+
     public void Fall()
     {
+        StartCoroutine(NotFall());
+    }
+
+    IEnumerator NotFall()
+    {
         playerAnimator.SetBool(Constant.ANIM_ISFALL, true);
+        while(numOfStacks > 0)
+        {
+            SimplePool.DespawnNewest(stackPrefab);
+            numOfStacks--;
+        }
+        yield return new WaitForSeconds(1f);
+        playerAnimator.SetBool(Constant.ANIM_ISFALL, false);
     }
 
     public void Win()
     {
+        transform.position = posFinish.position;
+        isWin = true;
         playerAnimator.Play(Constant.ANIM_WIN);
         SimplePool.Collect(stackPrefab);
     }
@@ -147,11 +190,17 @@ public class PlayerMovement : MonoBehaviour
             SimplePool.Despawn(other.gameObject);
             AddStack();
         }
-
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
             Win();
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    { 
+        if (collision.gameObject.CompareTag(Constant.TAG_ENEMY))
+        {
+            ColliderEnemy();
+        }
+    }
 }
