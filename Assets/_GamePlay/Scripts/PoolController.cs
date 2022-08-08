@@ -36,7 +36,7 @@ public class PoolController : MonoBehaviour
         //InitStep();
     }
 
-   /* public void InitStep()
+    /*public void InitStep()
     {
         GameObject newStep;
         Renderer newRenderer;

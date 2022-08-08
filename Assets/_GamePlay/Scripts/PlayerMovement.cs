@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform posFinish;
     public bool isWin = false;
 
+    
     private void Start()
     {
         while (bridgeIndex < maxBridge)
@@ -61,11 +62,32 @@ public class PlayerMovement : MonoBehaviour
             bridgeIndex++;
         }
     }
+   
 
     private void Update()
     {
+        BuildBridge();
+
+        SpawnBrick();
+    }
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    public void SpawnBrick()
+    {
+        if (Vector3.Distance(transform.position, stagePoint.position) < 0.2f || Vector3.Distance(transform.position, stagePoint1.position) < 0.2f)
+        {
+            SimplePool.Collect(brickPrefab);
+            brickSpawner.SpawnerBrick2((int)brickType);
+        }
+    }
+
+    public void BuildBridge()
+    {
         int layermask = LayerMask.GetMask(Constant.LAYER_BRIDGE);
-        if (Physics.Raycast(transform.position + Vector3.forward * 0.1f + Vector3.up * 10f , Vector3.down, out RaycastHit hit, Mathf.Infinity, layermask))
+        if (Physics.Raycast(transform.position + Vector3.forward * 0.1f + Vector3.up * 10f, Vector3.down, out RaycastHit hit, Mathf.Infinity, layermask))
         {
             if (hit.collider.CompareTag(bridgeTags.ToString()))
             {
@@ -87,26 +109,15 @@ public class PlayerMovement : MonoBehaviour
                     SimplePool.Respawn(brickPrefab);
                 }
             }
-        } 
+        }
         else
         {
             isMoving = true;
         }
-        
-        if(Vector3.Distance(transform.position, stagePoint.position) < 0.2f || Vector3.Distance(transform.position, stagePoint1.position) < 0.2f)
-        {
-            SimplePool.Collect(brickPrefab);
-            brickSpawner.SpawnerBrick2((int)brickType);
-        }
-    }
-    private void FixedUpdate()
-    {
-        Move();
     }
 
     public void Move()
-    {
-       
+    { 
         movement = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
         if (!isMoving && movement.z > 0)
         {
@@ -152,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
             if (thisPlayer.GetNumOfStack() < enemy.GetNumOfStacks())
             {
                 Fall();
-                Debug.Log("fall");
                 return;
             }
         }

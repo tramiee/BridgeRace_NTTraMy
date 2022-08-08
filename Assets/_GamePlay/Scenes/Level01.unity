@@ -494,7 +494,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.3, z: 0.1}
-  m_Center: {x: 0, y: 0.15, z: 0.01}
+  m_Center: {x: 0, y: 0.16, z: 0.01}
 --- !u!54 &229352518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2536,6 +2536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 229352515}
   offset: {x: 0, y: 2, z: -2.5}
+  speedCamera: 10
 --- !u!1 &967480210
 GameObject:
   m_ObjectHideFlags: 0

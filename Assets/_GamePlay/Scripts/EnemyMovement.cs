@@ -62,21 +62,20 @@ public class EnemyMovement : MonoBehaviour
             newBridge2.gameObject.GetComponent<Renderer>().enabled = false;
 
             bridgeIndex++;
-
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MovePosBrick()
     {
-        if (isWin) return;
-        enemyAnimator.SetBool(Constant.ANIM_ISRUN, true);
         if (Vector3.Distance(transform.position, targetPos) < 0.1f)
         {
             targetPos = SimplePool.GetPositionBrick(brickPrefab);
             agent.SetDestination(targetPos);
         }
+    }
 
+    public void MovePosStageNewAndSpawnBrick()
+    {
         if (Vector3.Distance(transform.position, stagePoint.position) < 0.06f)
         {
             SimplePool.Collect(brickPrefab);
@@ -85,7 +84,10 @@ public class EnemyMovement : MonoBehaviour
             targetPos = SimplePool.GetPositionBrick(brickPrefab);
             agent.SetDestination(targetPos);
         }
+    }
 
+    public void BuildBridge()
+    {
         int layermask = LayerMask.GetMask(Constant.LAYER_BRIDGE);
         if (Physics.Raycast(transform.position + Vector3.forward * 0.1f + Vector3.up * 10f, Vector3.down, out RaycastHit hit, Mathf.Infinity, layermask))
         {
@@ -109,6 +111,19 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (isWin) return;
+        enemyAnimator.SetBool(Constant.ANIM_ISRUN, true);
+
+        MovePosBrick();
+
+        MovePosStageNewAndSpawnBrick();
+
+        BuildBridge();
     }
 
     public void AddStack()
@@ -157,11 +172,13 @@ public class EnemyMovement : MonoBehaviour
         isWin = true;
         enemyAnimator.Play(Constant.ANIM_WIN);
         SimplePool.Collect(stackPrefab);
+        agent.enabled = true;
     }
 
     public void Fall()
     {
         StartCoroutine(NotFall());
+
     }
 
     IEnumerator NotFall()
@@ -173,11 +190,12 @@ public class EnemyMovement : MonoBehaviour
             SimplePool.DespawnNewest(stackPrefab);
             numOfStacks--;
         }
-        yield return new WaitForSeconds(1f);
+        agent.isStopped = true;
+        yield return new WaitForSeconds(4f);
         enemyAnimator.SetBool(Constant.ANIM_ISFALL, false);
         agent.SetDestination(targetPos);
         agent.speed = 1;
-
+        agent.isStopped = false;
     }
     private void OnTriggerEnter(Collider other)
     {

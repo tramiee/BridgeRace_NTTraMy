@@ -6,9 +6,15 @@ public class CameraMovement : MonoBehaviour
 {
     public Transform player;
     public Vector3 offset;
+    public float speedCamera = 10f;
 
     private void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        CameraFollowPlayer();
+    }
+
+    public void CameraFollowPlayer()
+    {
+        transform.position = Vector3.Lerp(transform.position, player.position + offset, speedCamera * Time.deltaTime);
     }
 }
