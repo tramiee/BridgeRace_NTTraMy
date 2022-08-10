@@ -10,24 +10,19 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public Animator playerAnimator;
     private bool isMoving = false;
+    private bool isStop = false;
     public Vector3 movement;
 
     public Transform stackHolder;
     public GameObject stackPrefab;
     private int numOfStacks = 0;
 
-    public GameObject stepHolder;
-    public GameObject stepHolder1;
-    public GameObject stepHolder2;
-    public GameObject bridgePrefab;
     public Material bridgeMaterial;
-    private int bridgeIndex = 0;
 
     public Constant.BrickTags brickTags;
     public Constant.BridgeTag bridgeTags;
     public Constant.BrickType brickType;
 
-    public int maxBridge = 22;
     public GameObject brickPrefab;
     public BrickSpawner brickSpawner;
     public Transform stagePoint;
@@ -42,28 +37,9 @@ public class PlayerMovement : MonoBehaviour
     
     private void Start()
     {
-        while (bridgeIndex < maxBridge)
-        {
-            GameObject newBridge = Instantiate(bridgePrefab) as GameObject;
-            newBridge.transform.SetParent(stepHolder.transform);
-            newBridge.transform.position = stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge.gameObject.GetComponent<Renderer>().enabled = false;
 
-            GameObject newBridge1 = Instantiate(bridgePrefab) as GameObject;
-            newBridge1.transform.SetParent(stepHolder1.transform);
-            newBridge1.transform.position = stepHolder1.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge1.gameObject.GetComponent<Renderer>().enabled = false;
-
-            GameObject newBridge2 = Instantiate(bridgePrefab) as GameObject;
-            newBridge2.transform.SetParent(stepHolder2.transform);
-            newBridge2.transform.position = stepHolder2.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge2.gameObject.GetComponent<Renderer>().enabled = false;
-
-            bridgeIndex++;
-        }
     }
-   
-
+  
     private void Update()
     {
         BuildBridge();
@@ -117,13 +93,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Move()
-    { 
-        movement = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
+    {
+        //movement = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
+        Vector2 dir = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;
+        movement = new Vector3(dir.x * speed * Time.fixedDeltaTime, rb.velocity.y, dir.y * speed * Time.fixedDeltaTime);
         if (!isMoving && movement.z > 0)
         {
             movement = Vector3.zero;
         }
         if (isWin)
+        {
+            movement = Vector3.zero;
+        }
+        if (isStop)
         {
             movement = Vector3.zero;
         }
@@ -181,8 +163,10 @@ public class PlayerMovement : MonoBehaviour
             SimplePool.DespawnNewest(stackPrefab);
             numOfStacks--;
         }
-        yield return new WaitForSeconds(1f);
+        isStop = true;
+        yield return new WaitForSeconds(4f);
         playerAnimator.SetBool(Constant.ANIM_ISFALL, false);
+        isStop = false;
     }
 
     public void Win()

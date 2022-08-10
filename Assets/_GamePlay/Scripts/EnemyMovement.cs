@@ -8,12 +8,6 @@ public class EnemyMovement : MonoBehaviour
     NavMeshAgent agent;
     public GameObject stackHolder;
     public GameObject stackPrefab;
-    public GameObject stepHolder;
-    public GameObject stepHolder1;
-    public GameObject stepHolder2;
-    public GameObject bridgePrefab;
-    public int maxBridge = 22;
-    private int bridgeIndex = 0;
     private int numOfStacks = 0;
 
     public Constant.BrickTags brickTag;
@@ -43,26 +37,6 @@ public class EnemyMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         targetPos += transform.position + new Vector3(0, 0, 0.3f);
         agent.SetDestination(targetPos);
-
-        while (bridgeIndex < maxBridge)
-        {
-            GameObject newBridge = Instantiate(bridgePrefab) as GameObject;
-            newBridge.transform.SetParent(stepHolder.transform);
-            newBridge.transform.position = stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge.gameObject.GetComponent<Renderer>().enabled = false;
-
-            GameObject newBridge1 = Instantiate(bridgePrefab) as GameObject;
-            newBridge1.transform.SetParent(stepHolder.transform);
-            newBridge1.transform.position = stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge1.gameObject.GetComponent<Renderer>().enabled = false;
-
-            GameObject newBridge2 = Instantiate(bridgePrefab) as GameObject;
-            newBridge2.transform.SetParent(stepHolder.transform);
-            newBridge2.transform.position = stepHolder.transform.position + new Vector3(0, 0.05f, 0.15f) * bridgeIndex;
-            newBridge2.gameObject.GetComponent<Renderer>().enabled = false;
-
-            bridgeIndex++;
-        }
     }
 
     public void MovePosBrick()

@@ -242,12 +242,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111210373}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.15, z: -0.05}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: -0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 229352515}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &131888055
 GameObject:
@@ -439,8 +439,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 111210374}
   - {fileID: 249031421}
+  - {fileID: 111210374}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -466,7 +466,7 @@ MonoBehaviour:
   stepHolder: {fileID: 2068370324}
   stepHolder1: {fileID: 315647440}
   stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 2432094651996975424, guid: 1bcbe85a8490ba441a1fa9a9852014e0, type: 3}
+  bridgePrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
   bridgeMaterial: {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   brickTags: 0
   bridgeTags: 0
@@ -615,7 +615,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1635,7 +1635,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &715941791
 GameObject:
@@ -1834,6 +1834,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &755322255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755322256}
+  m_Layer: 0
+  m_Name: StepHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &755322256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755322255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.034931153, y: 0.18488462, z: 0.022572696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758824468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,7 +2550,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -2860,7 +2890,6 @@ MonoBehaviour:
   thisEnemy: {fileID: 1038695244}
   enemies:
   - {fileID: 1350832662}
-  - {fileID: 0}
   player: {fileID: 229352516}
 --- !u!65 &1038695245
 BoxCollider:
@@ -3557,7 +3586,6 @@ MonoBehaviour:
   thisEnemy: {fileID: 1350832662}
   enemies:
   - {fileID: 1038695244}
-  - {fileID: 0}
   player: {fileID: 229352516}
 --- !u!195 &1350832663
 NavMeshAgent:
@@ -4824,6 +4852,10 @@ MonoBehaviour:
   - {fileID: 7187837166639238505, guid: 756ed79d4ec84aa49827397dac6ea180, type: 3}
   - {fileID: 9222704562772339012, guid: 740edb9e0a7501a45b4a8a819a4ce9bf, type: 3}
   - {fileID: 7163158467712482571, guid: b907dc21c9598a2489368494a48fa57b, type: 3}
+  stepHolder: {fileID: 755322256}
+  stepPrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
+  numOfBricksPerBridge: 22
+  numOfBridge: 3
 --- !u!4 &1819819478
 Transform:
   m_ObjectHideFlags: 0

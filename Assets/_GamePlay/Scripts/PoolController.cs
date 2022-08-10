@@ -10,9 +10,11 @@ public class PoolController : MonoBehaviour
     public List<Transform> stackHolder;
     public List<GameObject> stack;
 
-    //public List<GameObject> step;
-    //public List<Transform> stepHolder;
-    //public Dictionary<GameObject, Renderer> objRenderer = new Dictionary<GameObject, Renderer>();
+    public Transform stepHolder;
+    public GameObject stepPrefab;
+    public int numOfBricksPerBridge;
+    public int numOfBridge;
+
     private void Awake()
     {
         for (int i = 0; i < brick.Length; i++)
@@ -25,26 +27,6 @@ public class PoolController : MonoBehaviour
             SimplePool.Preload(stack[i], 50, stackHolder[i]);
         }
 
-        /*for(int i = 0; i < step.Count; i++)
-        {
-            SimplePool.Preload(step[i], 22, stepHolder[i]);
-        }*/
+        SimplePool.Preload(stepPrefab, numOfBricksPerBridge * numOfBridge, stepHolder);
     }
-
-    private void Start()
-    {
-        //InitStep();
-    }
-
-    /*public void InitStep()
-    {
-        GameObject newStep;
-        Renderer newRenderer;
-        for (int i = 0; i < stepHolder.Count; i++)
-        {
-            newStep = SimplePool.Spawn(step[i], stepHolder[i].position, stepHolder[i].rotation);
-            newRenderer = newStep.GetComponent<Renderer>();
-            objRenderer.Add(newStep, newRenderer);
-        }
-    }*/
 }
