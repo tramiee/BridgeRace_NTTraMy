@@ -123,6 +123,89 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 01046370b70ee504e8247f9ac096d754, type: 2}
+--- !u!1 &53999253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53999254}
+  m_Layer: 0
+  m_Name: BrickStart3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53999254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53999253}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.9, y: 2.31, z: 13.5}
+  m_LocalScale: {x: 0.35, y: 0.4, z: 0.3}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &78450109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78450111}
+  - component: {fileID: 78450110}
+  m_Layer: 0
+  m_Name: StepSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &78450110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78450109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116557209dd40e741a8bc61cb68b543a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepHolders:
+  - {fileID: 2068370325}
+  - {fileID: 315647441}
+  - {fileID: 1123866033}
+  - {fileID: 131888056}
+  - {fileID: 1218231448}
+  - {fileID: 155953139}
+  stepPrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
+  maxBridge: 22
+  bridgeIndex: 0
+--- !u!4 &78450111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78450109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.16, z: 0.010000002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93408968
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +755,7 @@ Transform:
   - {fileID: 111210374}
   - {fileID: 249031421}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229352516
 MonoBehaviour:
@@ -688,30 +771,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 229352518}
   joystick: {fileID: 753864216}
-  speed: 2
+  speed: 100
   playerAnimator: {fileID: 249031420}
   movement: {x: 0, y: 0, z: 0}
   stackHolder: {fileID: 111210374}
   stackPrefab: {fileID: 7163158467712482571, guid: b907dc21c9598a2489368494a48fa57b, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 2432094651996975424, guid: 1bcbe85a8490ba441a1fa9a9852014e0, type: 3}
   bridgeMaterial: {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   brickTags: 0
   bridgeTags: 0
   brickType: 3
-  maxBridge: 22
   brickPrefab: {fileID: 7163158467712482571, guid: 01c0c017ce95acc4098c52016ceec1da, type: 3}
   brickSpawner: {fileID: 1719295107}
-  stagePoint: {fileID: 789165964}
-  stagePoint1: {fileID: 639119968}
+  stage1Point:
+  - {fileID: 789165964}
+  - {fileID: 639119968}
+  - {fileID: 1365935447}
+  stage2Point:
+  - {fileID: 946239432}
+  - {fileID: 1249913277}
   thisPlayer: {fileID: 229352516}
   enemies:
   - {fileID: 1038695244}
   - {fileID: 1350832662}
   - {fileID: 1561378588}
-  posFinish: {fileID: 0}
+  posFinish: {fileID: 263476205}
   isWin: 0
 --- !u!65 &229352517
 BoxCollider:
@@ -982,7 +1065,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263283478}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1024,6 +1107,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263283478}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &263476204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263476205}
+  m_Layer: 0
+  m_Name: Posfinish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263476205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263476204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.05, z: -1.1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 1216992610}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291064364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1941,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496376630}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2053,7 +2166,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533391911}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2230,7 +2343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590343060}
   m_Layer: 0
-  m_Name: StagePoint4
+  m_Name: StagePoint6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2529,7 +2642,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690633534}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2652,6 +2765,36 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f4901e013bbc3354c9a366c9a0e84ba0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
+--- !u!1 &700346409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700346410}
+  m_Layer: 0
+  m_Name: StepHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &700346410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700346409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.16, z: 0.010000002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,7 +3083,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &770348658
 GameObject:
@@ -3535,11 +3678,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918732725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.18, y: 1.15, z: 7.33}
+  m_LocalPosition: {x: -1, y: 1.15, z: 7.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &939633705
 GameObject:
@@ -4165,19 +4308,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 735001763}
   stackPrefab: {fileID: 9222704562772339012, guid: 740edb9e0a7501a45b4a8a819a4ce9bf, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 3968440474880594384, guid: 7992b27242457a94b9f1f2ade8765c4a, type: 3}
-  maxBridge: 22
   brickTag: 1
   bridgeTag: 1
   bridgeMaterial: {fileID: 2100000, guid: 7bbf9d1c383eb9541af2c97e8c7260f9, type: 2}
   brickPrefab: {fileID: 9222704562772339012, guid: 76bb6099dc40a594da1a2f44b6f424ff, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 157732610}
-  stagePoint: {fileID: 789165964}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 789165964}
+  - {fileID: 946239432}
+  - {fileID: 590343060}
   brickSpawner: {fileID: 1719295107}
   brickType: 2
   thisEnemy: {fileID: 1038695244}
@@ -4228,7 +4368,7 @@ Transform:
   - {fileID: 735001764}
   - {fileID: 483315776}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1038695248
 NavMeshAgent:
@@ -4499,7 +4639,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144028335}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4757,6 +4897,7 @@ Transform:
   - {fileID: 312943336}
   - {fileID: 770348659}
   - {fileID: 168560349}
+  - {fileID: 263476205}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5035,7 +5176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1249913277}
   m_Layer: 0
-  m_Name: StagePoint4
+  m_Name: StagePoint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5266,19 +5407,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 889796659}
   stackPrefab: {fileID: 7187837166639238505, guid: 756ed79d4ec84aa49827397dac6ea180, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 1451281922290627440, guid: eb392ec326773c8448db07a49b2db8e0, type: 3}
-  maxBridge: 22
   brickTag: 3
   bridgeTag: 3
   bridgeMaterial: {fileID: 2100000, guid: f4901e013bbc3354c9a366c9a0e84ba0, type: 2}
   brickPrefab: {fileID: 7187837166639238505, guid: 4c52f974cc5933248aaca40185fdce28, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 1614068804}
-  stagePoint: {fileID: 639119968}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 639119968}
+  - {fileID: 1249913277}
+  - {fileID: 590343060}
   brickSpawner: {fileID: 1719295107}
   brickType: 1
   thisEnemy: {fileID: 1350832662}
@@ -5335,7 +5473,7 @@ Transform:
   - {fileID: 889796660}
   - {fileID: 1614068805}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1358709374
 GameObject:
@@ -5611,7 +5749,7 @@ GameObject:
   - component: {fileID: 1433871900}
   m_Layer: 0
   m_Name: Step
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40
@@ -5651,7 +5789,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433871898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6124,19 +6262,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 578649015}
   stackPrefab: {fileID: 4756775741536981913, guid: 0c1e0a5ec85d26944bc6daaa7deabbdd, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 1123866032}
-  bridgePrefab: {fileID: 3335878388353199260, guid: 6eb968db0eef690418b508f4f0594b55, type: 3}
-  maxBridge: 22
   brickTag: 2
   bridgeTag: 2
   bridgeMaterial: {fileID: 2100000, guid: d86cedf1143f8f44a9727384308720e1, type: 2}
   brickPrefab: {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 220357013}
-  stagePoint: {fileID: 1365935447}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 1365935447}
+  - {fileID: 946239432}
+  - {fileID: 590343060}
   brickSpawner: {fileID: 1719295107}
   brickType: 0
   thisEnemy: {fileID: 1561378588}
@@ -6193,7 +6328,7 @@ Transform:
   - {fileID: 578649016}
   - {fileID: 220357014}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580813546
 GameObject:
@@ -6746,7 +6881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64f06c6f44418f46a8f18c439fe1b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brick:
+  brickPrefabs:
   - {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
   - {fileID: 7187837166639238505, guid: 4c52f974cc5933248aaca40185fdce28, type: 3}
   - {fileID: 9222704562772339012, guid: 76bb6099dc40a594da1a2f44b6f424ff, type: 3}
@@ -6755,9 +6890,10 @@ MonoBehaviour:
   numz: 10
   spacex: 0.25
   spacez: 0.25
-  startPos: {fileID: 758824469}
-  startPos2: {fileID: 918732726}
-  brickPrefab: {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
+  startPoses:
+  - {fileID: 758824469}
+  - {fileID: 918732726}
+  - {fileID: 53999254}
 --- !u!1 &1735916955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7183,6 +7319,10 @@ MonoBehaviour:
   - {fileID: 7187837166639238505, guid: 756ed79d4ec84aa49827397dac6ea180, type: 3}
   - {fileID: 9222704562772339012, guid: 740edb9e0a7501a45b4a8a819a4ce9bf, type: 3}
   - {fileID: 7163158467712482571, guid: b907dc21c9598a2489368494a48fa57b, type: 3}
+  stepHolder: {fileID: 700346410}
+  stepPrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
+  numOfBricksPerBridge: 22
+  numOfBridge: 6
 --- !u!4 &1819819478
 Transform:
   m_ObjectHideFlags: 0
@@ -7196,7 +7336,7 @@ Transform:
   m_Children:
   - {fileID: 202806954}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966421910
 GameObject:

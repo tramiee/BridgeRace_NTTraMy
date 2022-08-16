@@ -452,7 +452,7 @@ Transform:
   - {fileID: 111210374}
   - {fileID: 249031421}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229352516
 MonoBehaviour:
@@ -468,24 +468,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 229352518}
   joystick: {fileID: 753864216}
-  speed: 2
+  speed: 100
   playerAnimator: {fileID: 249031420}
   movement: {x: 0, y: 0, z: 0}
   stackHolder: {fileID: 111210374}
   stackPrefab: {fileID: 7163158467712482571, guid: b907dc21c9598a2489368494a48fa57b, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 2432094651996975424, guid: 1bcbe85a8490ba441a1fa9a9852014e0, type: 3}
   bridgeMaterial: {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   brickTags: 0
   bridgeTags: 0
   brickType: 3
-  maxBridge: 22
   brickPrefab: {fileID: 7163158467712482571, guid: 01c0c017ce95acc4098c52016ceec1da, type: 3}
   brickSpawner: {fileID: 1719295107}
-  stagePoint: {fileID: 789165964}
-  stagePoint1: {fileID: 639119968}
+  stage1Point:
+  - {fileID: 789165964}
+  - {fileID: 639119968}
+  stage2Point: []
   thisPlayer: {fileID: 229352516}
   enemies:
   - {fileID: 1038695244}
@@ -767,6 +764,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &364464122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 364464124}
+  - component: {fileID: 364464123}
+  m_Layer: 0
+  m_Name: StepSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &364464123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364464122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116557209dd40e741a8bc61cb68b543a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepHolders:
+  - {fileID: 2068370325}
+  - {fileID: 315647441}
+  - {fileID: 131888056}
+  stepPrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
+  maxBridge: 22
+  bridgeIndex: 0
+--- !u!4 &364464124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364464122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.034931153, y: 0.18488462, z: 0.022572696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &402257080
 PrefabInstance:
@@ -1954,7 +2001,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &778831167
 PrefabInstance:
@@ -2345,6 +2392,36 @@ Transform:
   m_Father: {fileID: 1690044994}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &876994619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876994620}
+  m_Layer: 0
+  m_Name: StepHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876994620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876994619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.034931153, y: 0.18488462, z: 0.022572696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &885804729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,7 +2575,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &946239431
 GameObject:
@@ -3454,19 +3531,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 735001763}
   stackPrefab: {fileID: 9222704562772339012, guid: 740edb9e0a7501a45b4a8a819a4ce9bf, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 3968440474880594384, guid: 7992b27242457a94b9f1f2ade8765c4a, type: 3}
-  maxBridge: 22
   brickTag: 1
   bridgeTag: 1
   bridgeMaterial: {fileID: 2100000, guid: 7bbf9d1c383eb9541af2c97e8c7260f9, type: 2}
   brickPrefab: {fileID: 9222704562772339012, guid: 76bb6099dc40a594da1a2f44b6f424ff, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 157732610}
-  stagePoint: {fileID: 789165964}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 789165964}
+  - {fileID: 946239432}
   brickSpawner: {fileID: 1719295107}
   brickType: 2
   thisEnemy: {fileID: 1038695244}
@@ -3517,7 +3590,7 @@ Transform:
   - {fileID: 735001764}
   - {fileID: 483315776}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1038695248
 NavMeshAgent:
@@ -4151,19 +4224,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 889796659}
   stackPrefab: {fileID: 7187837166639238505, guid: 756ed79d4ec84aa49827397dac6ea180, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 1451281922290627440, guid: eb392ec326773c8448db07a49b2db8e0, type: 3}
-  maxBridge: 22
   brickTag: 3
   bridgeTag: 3
   bridgeMaterial: {fileID: 2100000, guid: f4901e013bbc3354c9a366c9a0e84ba0, type: 2}
   brickPrefab: {fileID: 7187837166639238505, guid: 4c52f974cc5933248aaca40185fdce28, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 1614068804}
-  stagePoint: {fileID: 639119968}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 639119968}
+  - {fileID: 946239432}
   brickSpawner: {fileID: 1719295107}
   brickType: 1
   thisEnemy: {fileID: 1350832662}
@@ -4220,7 +4289,7 @@ Transform:
   - {fileID: 889796660}
   - {fileID: 1614068805}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1358709374
 GameObject:
@@ -4883,19 +4952,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackHolder: {fileID: 578649015}
   stackPrefab: {fileID: 4756775741536981913, guid: 0c1e0a5ec85d26944bc6daaa7deabbdd, type: 3}
-  stepHolder: {fileID: 2068370324}
-  stepHolder1: {fileID: 315647440}
-  stepHolder2: {fileID: 131888055}
-  bridgePrefab: {fileID: 3335878388353199260, guid: 6eb968db0eef690418b508f4f0594b55, type: 3}
-  maxBridge: 22
   brickTag: 2
   bridgeTag: 2
   bridgeMaterial: {fileID: 2100000, guid: d86cedf1143f8f44a9727384308720e1, type: 2}
   brickPrefab: {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   enemyAnimator: {fileID: 220357013}
-  stagePoint: {fileID: 639119968}
-  stagePoint1: {fileID: 946239432}
+  stagePoints:
+  - {fileID: 639119968}
+  - {fileID: 946239432}
   brickSpawner: {fileID: 1719295107}
   brickType: 0
   thisEnemy: {fileID: 1561378588}
@@ -4952,7 +5017,7 @@ Transform:
   - {fileID: 578649016}
   - {fileID: 220357014}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580813546
 GameObject:
@@ -5310,7 +5375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64f06c6f44418f46a8f18c439fe1b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brick:
+  brickPrefabs:
   - {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
   - {fileID: 7187837166639238505, guid: 4c52f974cc5933248aaca40185fdce28, type: 3}
   - {fileID: 9222704562772339012, guid: 76bb6099dc40a594da1a2f44b6f424ff, type: 3}
@@ -5319,9 +5384,9 @@ MonoBehaviour:
   numz: 10
   spacex: 0.25
   spacez: 0.25
-  startPos: {fileID: 758824469}
-  startPos2: {fileID: 918732726}
-  brickPrefab: {fileID: 4756775741536981913, guid: abc7540b650861244b881f930b414b80, type: 3}
+  startPoses:
+  - {fileID: 758824469}
+  - {fileID: 918732726}
 --- !u!1 &1735916955
 GameObject:
   m_ObjectHideFlags: 0
@@ -5557,6 +5622,10 @@ MonoBehaviour:
   - {fileID: 7187837166639238505, guid: 756ed79d4ec84aa49827397dac6ea180, type: 3}
   - {fileID: 9222704562772339012, guid: 740edb9e0a7501a45b4a8a819a4ce9bf, type: 3}
   - {fileID: 7163158467712482571, guid: b907dc21c9598a2489368494a48fa57b, type: 3}
+  stepHolder: {fileID: 876994620}
+  stepPrefab: {fileID: 8782078288233246227, guid: f4772dce3324d8f429392474edf83534, type: 3}
+  numOfBricksPerBridge: 22
+  numOfBridge: 3
 --- !u!4 &1819819478
 Transform:
   m_ObjectHideFlags: 0
@@ -5570,7 +5639,7 @@ Transform:
   m_Children:
   - {fileID: 202806954}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1934040604
 GameObject:

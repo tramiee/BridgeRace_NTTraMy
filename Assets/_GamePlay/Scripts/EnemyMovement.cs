@@ -19,8 +19,8 @@ public class EnemyMovement : MonoBehaviour
     public Vector3 targetPos;
     public Animator enemyAnimator;
 
-    public Transform stagePoint;
-    public Transform stagePoint1;
+    private int currentStage;
+    public List<Transform> stagePoints;
 
     public BrickSpawner brickSpawner;
 
@@ -37,6 +37,7 @@ public class EnemyMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         targetPos += transform.position + new Vector3(0, 0, 0.3f);
         agent.SetDestination(targetPos);
+        currentStage = 0;
     }
 
     public void MovePosBrick()
@@ -50,11 +51,11 @@ public class EnemyMovement : MonoBehaviour
 
     public void MovePosStageNewAndSpawnBrick()
     {
-        if (Vector3.Distance(transform.position, stagePoint.position) < 0.06f)
+        if (Vector3.Distance(transform.position, stagePoints[currentStage].position) < 0.06f)
         {
+            currentStage++;
             SimplePool.Collect(brickPrefab);
-            brickSpawner.SpawnerBrick2((int)brickType);
-            stagePoint = stagePoint1;
+            brickSpawner.SpawnerBrick((int)brickType, currentStage);
             targetPos = SimplePool.GetPositionBrick(brickPrefab);
             agent.SetDestination(targetPos);
         }
@@ -106,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
         numOfStacks += 1;
         if (numOfStacks >= 8)
         {
-            agent.SetDestination(stagePoint.position);
+            agent.SetDestination(stagePoints[currentStage].position);
         }
     }
 

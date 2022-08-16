@@ -25,8 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject brickPrefab;
     public BrickSpawner brickSpawner;
-    public Transform stagePoint;
-    public Transform stagePoint1;
+
+    public List<Transform> stage1Point;
+    public List<Transform> stage2Point;
 
     public PlayerMovement thisPlayer;
     public List<EnemyMovement> enemies = new List<EnemyMovement>();
@@ -37,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
     
     private void Start()
     {
-
     }
   
     private void Update()
@@ -53,11 +53,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void SpawnBrick()
     {
-        if (Vector3.Distance(transform.position, stagePoint.position) < 0.2f || Vector3.Distance(transform.position, stagePoint1.position) < 0.2f)
+        for(int i = 0; i < stage1Point.Count; i++)
         {
-            SimplePool.Collect(brickPrefab);
-            brickSpawner.SpawnerBrick2((int)brickType);
+            if(Vector3.Distance(transform.position, stage1Point[i].position) < 0.2f)
+            {
+                SimplePool.Collect(brickPrefab);
+                brickSpawner.SpawnerBrick((int)brickType, 1);
+            }
         }
+
+        for (int i = 0; i < stage2Point.Count; i++)
+        {
+            if (Vector3.Distance(transform.position, stage2Point[i].position) < 0.2f)
+            {
+                SimplePool.Collect(brickPrefab);
+                brickSpawner.SpawnerBrick((int)brickType, 2);
+            }
+        }
+
     }
 
     public void BuildBridge()
@@ -160,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetBool(Constant.ANIM_ISFALL, true);
         while(numOfStacks > 0)
         {
+            
             SimplePool.DespawnNewest(stackPrefab);
             numOfStacks--;
         }

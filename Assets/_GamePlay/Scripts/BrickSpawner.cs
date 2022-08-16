@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class BrickSpawner : MonoBehaviour
 {
-    public GameObject[] brick; 
+    public GameObject[] brickPrefabs; 
     public int numx = 8;
     public int numz = 8;
     public float spacex = 0.25f;
     public float spacez = 0.25f;
-    public Transform startPos;
-    public Transform startPos2;
-    public GameObject brickPrefab;
+
+    public List<Transform> startPoses;
 
     private int[] numOfBrick = { 25, 25, 25, 25 };
-    private int[,] mapStage2;
+    private int[,] sampleMap = new int[10, 10];
+    private List<int[,]> mapStages = new List<int[, ]>();
     // Start is called before the first frame update
     void Start()
     {
-        mapStage2 = new int[10, 10];
-        Invoke("SpawnerBrick1",0f);
-        InitMapStage2();
+
+        for(int i = 0; i < startPoses.Count; i++)
+        {
+            mapStages.Add(InitMapStage(sampleMap));
+        }
+
+        for (int i = 0; i < brickPrefabs.Length; i++)
+        {
+            SpawnerBrick(i, 0);
+        }
     }
 
-    public void SpawnerBrick1()
+    private int[,] InitMapStage(int[,] mapStage)
     {
         for (int i = 0; i < numx; i++)
         {
@@ -31,50 +38,35 @@ public class BrickSpawner : MonoBehaviour
             {
                 while (true)
                 {
-                    int randomBricks = Random.Range(0, brick.Length);
+                    int randomBricks = Random.Range(0, brickPrefabs.Length);
                     if (numOfBrick[randomBricks] > 0)
                     {
-                        SimplePool.Spawn(brick[randomBricks], startPos.position + new Vector3(i * spacex, 0.015f, j * spacez), startPos.rotation);
+                        mapStage[i, j] = randomBricks;
                         numOfBrick[randomBricks]--;
                         break;
                     }
                 }
             }
         }
-    }
-    
-    private void InitMapStage2()
-    {
-        int[] numOfBrickStage2 = { 25, 25, 25, 25 };
-
-        for (int i = 0; i < numx; i++)
+        for (int i = 0; i < numOfBrick.Length; i++)
         {
-            for (int j = 0; j < numz; j++)
-            {
-                while (true)
-                {
-                    int randomBricks = Random.Range(0, brick.Length);
-                    if (numOfBrickStage2[randomBricks] > 0)
-                    {
-                        mapStage2[i, j] = randomBricks;
-                        numOfBrickStage2[randomBricks]--;
-                        break;
-                    }
-                }
-            }
+            numOfBrick[i] = 25;
         }
+        return mapStage;
+
     }
-    
+
     // 0 is blue, 1 is green, 2 is red, 3 is yellow 
-    public void SpawnerBrick2(int brickType)
+    public void SpawnerBrick(int brickType, int stageIndex)
     {
-        for (int i = 0; i < mapStage2.GetLength(0); i++)
+        Debug.Log(sampleMap.GetLength(0));
+        for (int i = 0; i < sampleMap.GetLength(0); i++)
         {
-            for (int j = 0; j < mapStage2.GetLength(1); j++)
+            for (int j = 0; j < sampleMap.GetLength(1); j++)
             {
-                if (mapStage2[i, j] == brickType)
+                if (mapStages[stageIndex][i, j] == brickType)
                 {
-                    SimplePool.Spawn(brick[brickType], startPos2.position + new Vector3(i * spacex, 0.015f, j * spacez), startPos2.rotation);
+                    SimplePool.Spawn(brickPrefabs[brickType], startPoses[stageIndex].position + new Vector3(i * spacex, 0.015f, j * spacez), startPoses[stageIndex].rotation);
                 }
             }
         }
