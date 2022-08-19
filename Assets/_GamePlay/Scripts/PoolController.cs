@@ -14,7 +14,6 @@ public class PoolController : MonoBehaviour
     public GameObject stepPrefab;
     public int numOfBricksPerBridge;
     public int numOfBridge;
-
     private void Awake()
     {
         for (int i = 0; i < brick.Length; i++)

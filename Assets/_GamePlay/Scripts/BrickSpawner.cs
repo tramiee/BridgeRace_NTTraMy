@@ -19,7 +19,7 @@ public class BrickSpawner : MonoBehaviour
     void Start()
     {
 
-        for(int i = 0; i < startPoses.Count; i++)
+        for (int i = 0; i < startPoses.Count; i++)
         {
             mapStages.Add(InitMapStage(sampleMap));
         }
@@ -59,7 +59,6 @@ public class BrickSpawner : MonoBehaviour
     // 0 is blue, 1 is green, 2 is red, 3 is yellow 
     public void SpawnerBrick(int brickType, int stageIndex)
     {
-        Debug.Log(sampleMap.GetLength(0));
         for (int i = 0; i < sampleMap.GetLength(0); i++)
         {
             for (int j = 0; j < sampleMap.GetLength(1); j++)

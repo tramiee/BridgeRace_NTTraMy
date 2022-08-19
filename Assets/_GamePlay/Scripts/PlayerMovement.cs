@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform stackHolder;
     public GameObject stackPrefab;
-    private int numOfStacks = 0;
+    private int numOfStacks;
 
     public Material bridgeMaterial;
 
@@ -32,19 +32,30 @@ public class PlayerMovement : MonoBehaviour
     public PlayerMovement thisPlayer;
     public List<EnemyMovement> enemies = new List<EnemyMovement>();
 
+    public List<Transform> enemiesPos;
+
     public Transform posFinish;
-    public bool isWin = false;
+    public Transform posCamera;
+    public bool isWin;
 
     
     private void Start()
     {
+        numOfStacks = 0;
+        isWin = false;
     }
   
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Win();
+        }
         BuildBridge();
 
         SpawnBrick();
+
+        Lose();
     }
     private void FixedUpdate()
     {
@@ -136,7 +147,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddStack()
     {
-        SimplePool.Spawn(stackPrefab, stackHolder.position + stackHolder.up * numOfStacks * 0.05f, stackHolder.rotation);
+        GameObject newStack = SimplePool.Spawn(stackPrefab, stackHolder.position + stackHolder.up * numOfStacks * 0.05f, stackHolder.rotation);
+        newStack.transform.SetParent(stackHolder);
         numOfStacks += 1;
     }
 
@@ -189,6 +201,24 @@ public class PlayerMovement : MonoBehaviour
         isWin = true;
         playerAnimator.Play(Constant.ANIM_WIN);
         SimplePool.Collect(stackPrefab);
+
+        joystick.gameObject.SetActive(false);
+        LevelManager.Ins.Win();
+    }
+
+    public void Lose()
+    {
+        for(int i = 0; i < enemiesPos.Count; i++)
+        {
+            if(Vector3.Distance(enemiesPos[i].position, posFinish.position) < 0.2f)
+            {
+                isStop = true;
+                SimplePool.Collect(stackPrefab);
+                playerAnimator.SetBool(Constant.ANIM_LOSE, true);
+                joystick.gameObject.SetActive(false);
+                LevelManager.Ins.Fail();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

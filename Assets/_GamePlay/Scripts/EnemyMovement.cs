@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     NavMeshAgent agent;
-    public GameObject stackHolder;
+    public Transform stackHolder;
     public GameObject stackPrefab;
-    private int numOfStacks = 0;
+    private int numOfStacks;
 
     public Constant.BrickTags brickTag;
     public Constant.BridgeTag bridgeTag;
@@ -26,11 +26,17 @@ public class EnemyMovement : MonoBehaviour
 
     public Constant.BrickType brickType;
 
-    private bool isWin = false;
+    private bool isWin;
+    private bool isLose = false;
 
     public EnemyMovement thisEnemy;
     public List<EnemyMovement> enemies = new List<EnemyMovement>();
     public PlayerMovement player;
+
+    public List<Transform> enemiesPos;
+    public Transform playerPos;
+    public Transform posFinish;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +44,8 @@ public class EnemyMovement : MonoBehaviour
         targetPos += transform.position + new Vector3(0, 0, 0.3f);
         agent.SetDestination(targetPos);
         currentStage = 0;
+        numOfStacks = 0;
+        isWin = false;
     }
 
     public void MovePosBrick()
@@ -92,6 +100,11 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         if (isWin) return;
+       /* if (isLose)
+        {
+            Lose();
+            return;
+        }*/
         enemyAnimator.SetBool(Constant.ANIM_ISRUN, true);
 
         MovePosBrick();
@@ -103,7 +116,8 @@ public class EnemyMovement : MonoBehaviour
 
     public void AddStack()
     {
-        SimplePool.Spawn(stackPrefab, stackHolder.transform.position + stackHolder.transform.up * numOfStacks * 0.05f, stackHolder.transform.rotation);
+        GameObject newStack = SimplePool.Spawn(stackPrefab, stackHolder.position + stackHolder.up * numOfStacks * 0.05f, stackHolder.rotation);
+        newStack.transform.SetParent(stackHolder);
         numOfStacks += 1;
         if (numOfStacks >= 8)
         {
@@ -150,10 +164,24 @@ public class EnemyMovement : MonoBehaviour
         agent.enabled = true;
     }
 
+    public void Lose()
+    {
+        if(Vector3.Distance(playerPos.position, posFinish.position) < 0.1f)
+        {
+            agent.isStopped = true;
+            enemyAnimator.SetBool(Constant.ANIM_LOSE, true);
+            SimplePool.Collect(stackPrefab);
+        }
+
+        for(int i = 0; i < enemies.Count; i++)
+        {
+
+        }
+    }
+
     public void Fall()
     {
         StartCoroutine(NotFall());
-
     }
 
     IEnumerator NotFall()

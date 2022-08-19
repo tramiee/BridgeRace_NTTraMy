@@ -6,6 +6,7 @@ public class Constant : MonoBehaviour
 {
     public const string ANIM_ISRUN = "isRun";
     public const string ANIM_WIN = "Win";
+    public const string ANIM_LOSE = "Lose";
     public const string ANIM_ISFALL = "isFall";
 
     public const string TAG_FINISH = "Finish";
